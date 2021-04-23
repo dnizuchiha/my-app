@@ -3,18 +3,42 @@ import './App.css';
 
 import tasks from './sample/tasks.json';
 import Tasks from './componets/tasks';
+import TaskForm from './componets/TaskForm';
 
 class App extends Component{
   
   state = {
     tasks: tasks
   }
+
+  addTask = (title, description) => {
+    const newTask = {
+      id: this.state.tasks.length,
+      titulo: title,
+      comentario: description,
+      estado: false
+    }
+    console.log(newTask)
+    this.setState({
+      tasks: [...this.state.tasks, newTask]
+    })
+  }
+
+  deleteTask = (id) => {
+    const newTasksDelete = this.state.tasks.filter(task => task.id !== id);
+    console.log(newTasksDelete);
+  }
+
+  checkTask = () => {
+    
+  }
   
   render(){
     
     return(
       <div>
-        <Tasks tasks = {this.state.tasks}/>
+        <TaskForm addTask = {this.addTask}/>
+        <Tasks tasks = {this.state.tasks} deleteTask = {this.deleteTask}/>
       </div>
     )
   }
